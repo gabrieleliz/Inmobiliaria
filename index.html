@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO-Inmobiliaria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Menú de navegación superior -->
+    <nav class="main-nav">
+        <button onclick="mostrarSeccion('vista-publico')">Ver Propiedades</button>
+        <button onclick="mostrarSeccion('vista-login')">Mi Cuenta</button>
+    </nav>
+
+    <div class="container">
+        <!-- SECCIÓN 1: GALERÍA PÚBLICA -->
+        <section id="vista-publico">
+            <h2>Propiedades Disponibles</h2>
+            <div id="contenedor-propiedades" class="grid-propiedades">
+                <!-- Las casas aprobadas aparecen aquí -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ACCESO (Login y Registro) -->
+        <section id="vista-login" class="hidden">
+            <h2>Ingreso al Sistema</h2>
+            <select id="rol-seleccionado" onchange="verificarRol()">
+                <option value="usuario">Soy Usuario / Propietario</option>
+                <option value="admin">Soy Administrador</option>
+            </select>
+            
+            <div id="campo-codigo-admin" class="hidden">
+                <input type="password" id="codigo-admin" placeholder="Código de Autorización">
+            </div>
+
+            <form id="form-auth">
+                <input type="text" id="nombre" placeholder="Nombre de usuario" required>
+                <input type="password" id="pass" placeholder="Contraseña" required>
+                
+                <!-- Modificación: Ahora es un enlace a la foto de identificación -->
+                <div id="registro-extra">
+                    <label>Enlace a Foto de Identificación (INE):</label>
+                    <input type="url" id="identificacion-url" placeholder="https://enlace-a-tu-foto.com">
+                </div>
+                
+                <button type="submit">Entrar al Panel</button>
+            </form>
+        </section>
+
+        <!-- SECCIÓN 3: PANEL USUARIO (Mis Publicaciones) -->
+        <section id="panel-usuario" class="hidden">
+            <h2>Panel de <span id="user-name-display"></span></h2>
+            <div class="info-box">
+                Recuerda: El nombre en el comprobante debe coincidir con tu identificación.
+            </div>
+            
+            <form id="form-propiedad">
+                <label>Ubicación en Google Maps:</label>
+                <input type="url" id="maps-url" placeholder="https://goo.gl/maps/..." required>
+                
+                <input type="number" id="precio" placeholder="Precio solicitado ($)" required>
+                
+                <select id="tipo-operacion">
+                    <option value="renta">Poner en Renta</option>
+                    <option value="venta">Poner en Venta</option>
+                </select>
+                
+                <input type="text" id="contacto" placeholder="Teléfono de contacto" required>
+                
+                <!-- Modificación: Ahora es un enlace al comprobante de propiedad -->
+                <label>Enlace a Comprobante de Propiedad (PDF/Imagen):</label>
+                <input type="url" id="comprobante-url" placeholder="https://enlace-al-comprobante.com" required>
+                
+                <button type="submit">Publicar para Revisión</button>
+            </form>
+
+            <hr>
+            <h3>Estado de Mis Publicaciones</h3>
+            <div id="mis-propiedades-lista">
+                <!-- Aquí el usuario verá si fue aprobado o rechazado (con el motivo) -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: PANEL ADMIN (Validaciones) -->
+        <section id="panel-admin" class="hidden">
+            <h2>Validaciones Pendientes</h2>
+            <div id="lista-pendientes">
+                <!-- El admin verá aquí: ID Usuario + Comprobante Propiedad + Mapa -->
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
